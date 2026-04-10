@@ -12,7 +12,7 @@
 namespace Symfony\AI\Platform\Bridge\AmazeeAi\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\AI\Platform\Bridge\AmazeeAi\PlatformFactory;
+use Symfony\AI\Platform\Bridge\AmazeeAi\Factory;
 use Symfony\AI\Platform\Bridge\Generic\CompletionsModel;
 use Symfony\AI\Platform\Bridge\Generic\EmbeddingsModel;
 use Symfony\AI\Platform\Bridge\Generic\FallbackModelCatalog;
@@ -20,11 +20,11 @@ use Symfony\AI\Platform\Platform;
 use Symfony\Component\HttpClient\EventSourceHttpClient;
 use Symfony\Component\HttpClient\MockHttpClient;
 
-final class PlatformFactoryTest extends TestCase
+final class FactoryTest extends TestCase
 {
     public function testCreateWithDefaults()
     {
-        $platform = PlatformFactory::create(
+        $platform = Factory::createPlatform(
             'https://litellm.example.com',
             'test-api-key',
         );
@@ -36,7 +36,7 @@ final class PlatformFactoryTest extends TestCase
     {
         $httpClient = new MockHttpClient();
 
-        $platform = PlatformFactory::create(
+        $platform = Factory::createPlatform(
             'https://litellm.example.com',
             'test-api-key',
             $httpClient,
@@ -49,7 +49,7 @@ final class PlatformFactoryTest extends TestCase
     {
         $httpClient = new EventSourceHttpClient(new MockHttpClient());
 
-        $platform = PlatformFactory::create(
+        $platform = Factory::createPlatform(
             'https://litellm.example.com',
             'test-api-key',
             $httpClient,
